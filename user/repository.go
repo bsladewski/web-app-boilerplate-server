@@ -204,6 +204,16 @@ func DeleteRole(ctx context.Context, db *gorm.DB, item *Role) error {
 	return db.Delete(item).Error
 }
 
+// saveUserRole inserts or updates the supplied user role record.
+func saveUserRole(ctx context.Context, db *gorm.DB, item *userRole) error {
+	return db.Save(item).Error
+}
+
+// deleteUserRole deletes the supplied user role record.
+func deleteUserRole(ctx context.Context, db *gorm.DB, item *userRole) error {
+	return db.Delete(item).Error
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Permission                                                                 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -323,5 +333,29 @@ func SavePermission(ctx context.Context, db *gorm.DB, item *Permission) error {
 // DeletePermission deletes the supplied permission record.
 func DeletePermission(ctx context.Context, db *gorm.DB,
 	item *Permission) error {
+	return db.Delete(item).Error
+}
+
+// saveUserPermission inserts or updates the supplied user permission record.
+func saveUserPermission(ctx context.Context, db *gorm.DB,
+	item *userPermission) error {
+	return db.Save(item).Error
+}
+
+// saveRolePermission inserts or updates the supplied role permission record.
+func saveRolePermission(ctx context.Context, db *gorm.DB,
+	item *rolePermission) error {
+	return db.Save(item).Error
+}
+
+// deleteUserPermission deletes the supplied user permission record.
+func deleteUserPermission(ctx context.Context, db *gorm.DB,
+	item *userPermission) error {
+	return db.Delete(item).Error
+}
+
+// deleteRolePermission deletes the supplied role permission record.
+func deleteRolePermission(ctx context.Context, db *gorm.DB,
+	item *rolePermission) error {
 	return db.Delete(item).Error
 }

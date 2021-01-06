@@ -13,7 +13,9 @@ import (
 	"github.com/bsladewski/web-app-boilerplate-server/data"
 	"github.com/bsladewski/web-app-boilerplate-server/env"
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/sirupsen/logrus"
 	"github.com/twinj/uuid"
+	"gorm.io/gorm"
 )
 
 // init configures the user package. This function reads an access and refresh
@@ -262,5 +264,131 @@ func GetUserPermissions(ctx context.Context, u *User,
 	}
 
 	return results, nil
+
+}
+
+// CreateRoles will create all specified roles if they do not already exist.
+func CreateRoles(ctx context.Context, roleKeys ...string) error {
+
+	for _, roleKey := range roleKeys {
+		if err := CreateRole(ctx, roleKey); err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
+
+// CreateRole will create the specified role if it does not already exist. If
+// the role already exists nothing will happen and no error will be returned.
+func CreateRole(ctx context.Context, roleKey string) error {
+
+	// check if the role already exists
+	_, err := GetRoleByKey(ctx, data.DB(), roleKey)
+	if err != gorm.ErrRecordNotFound {
+		return err
+	}
+
+	// if the role does not exist create it
+	return SaveRole(ctx, data.DB(), &Role{
+		ReadOnly: true,
+		Key:      roleKey,
+	})
+
+}
+
+// CreatePublicPermissions will create all specified permissions if they do
+// not already exist. The roles will be marked as public pemrissions. If a list
+// of roles is supplied all permissions will also be associated with the list of
+// roles.
+func CreatePublicPermissions(ctx context.Context, permissionKeys []string,
+	roles []string) error {
+
+	for _, permissionKey := range permissionKeys {
+		if err := CreatePermission(ctx, permissionKey, true, roles...); err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
+
+// CreatePrivatePermissions will create all specified permissions if they do
+// not already exist. The roles will be marked as private pemrissions. If a list
+// of roles is supplied all permissions will also be associated with the list of
+// roles.
+func CreatePrivatePermissions(ctx context.Context, permissionKeys []string,
+	roles []string) error {
+
+	for _, permissionKey := range permissionKeys {
+		if err := CreatePermission(ctx, permissionKey, false, roles...); err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
+
+// CreatePermission will create the specified permission if it does not already
+// exist. Additionally, the permission will be associated with the supplied list
+// of roles. If the permission already exists nothing will happen and no error
+// will be returned.
+func CreatePermission(ctx context.Context, permissionKey string, public bool,
+	roles ...string) error {
+
+	// create a new transaction
+	tx := data.DB().Begin()
+
+	// wrap the work in a function to capture any errors and simplify committing
+	// or rolling back the transaction
+	if err := func() error {
+
+		// check if the permission already exists
+		permission, err := GetPermissionByKey(ctx, tx, permissionKey)
+		if err == gorm.ErrRecordNotFound {
+			permission = &Permission{
+				Public: public,
+				Key:    permissionKey,
+			}
+
+			// if the permission does not already exist create it
+			if err := SavePermission(ctx, tx, permission); err != nil {
+				return err
+			}
+		} else if err != nil {
+			return err
+		}
+
+		// create associated between the permission and roles that should use
+		// the permission
+		for _, roleKey := range roles {
+			role, err := GetRoleByKey(ctx, tx, roleKey)
+			if err != nil {
+				return err
+			}
+
+			if err := saveRolePermission(ctx, tx, &rolePermission{
+				RoleID:       role.ID,
+				PermissionID: permission.ID,
+			}); err != nil {
+				return err
+			}
+		}
+
+		return nil
+
+	}(); err != nil {
+		// if an error was encountered roll back the transaction
+		if err := tx.Rollback(); err != nil {
+			logrus.Error(err)
+		}
+		return err
+	}
+
+	// if no error was encountered commit the transaction
+	return tx.Commit().Error
 
 }

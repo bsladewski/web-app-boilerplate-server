@@ -31,36 +31,6 @@ func init() {
 			logrus.Fatal(err)
 		}
 	}
-
-	for _, r := range mockRoles {
-		if err := data.DB().Create(&r).Error; err != nil {
-			logrus.Fatal(err)
-		}
-	}
-
-	for _, ur := range mockUserRoles {
-		if err := data.DB().Create(&ur).Error; err != nil {
-			logrus.Fatal(err)
-		}
-	}
-
-	for _, p := range mockPermissions {
-		if err := data.DB().Create(&p).Error; err != nil {
-			logrus.Fatal(err)
-		}
-	}
-
-	for _, up := range mockUserPermissions {
-		if err := data.DB().Create(&up).Error; err != nil {
-			logrus.Fatal(err)
-		}
-	}
-
-	for _, rp := range mockRolePermissions {
-		if err := data.DB().Create(&rp).Error; err != nil {
-			logrus.Fatal(err)
-		}
-	}
 }
 
 /* Data Types */
@@ -100,6 +70,7 @@ type Role struct {
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 
+	ReadOnly    bool   `gorm:"index" json:"read_only"`  // read only permissions cannot be edited or deleted
 	Key         string `gorm:"index,unique" json:"key"` // text that uniquely identifies this role
 	Name        string `json:"name"`                    // a display name for this role
 	Description string `json:"description"`             // a brief description of this role
@@ -165,110 +136,5 @@ var mockUsers = []User{
 		Password:  "$2a$10$JrF8wIP/MaN.i5xx5VV.ZuqP3DxJs1Q4fAY.WbGPOhYWQzpon3kpm", // pass_good
 		SecretKey: "43ee0e83-dc81-4263-8bb0-6ccddff8586d",
 		Verified:  true,
-	},
-}
-
-var mockRoles = []Role{
-	{
-		ID:          1,
-		Key:         "example_role_1",
-		Name:        "Example Role 1",
-		Description: "Adds example public permissions.",
-	},
-	{
-		ID:          2,
-		Key:         "example_role_2",
-		Name:        "Example Role 2",
-		Description: "Adds example private permissions.",
-	},
-}
-
-var mockUserRoles = []userRole{
-	{
-		ID:     1,
-		UserID: 2, // test@example.com
-		RoleID: 1, // example_role_1
-	},
-	{
-		ID:     2,
-		UserID: 2, // test@example.com
-		RoleID: 2, // example_role_2
-	},
-}
-
-var mockPermissions = []Permission{
-	{
-		ID:          1,
-		Key:         "example_direct_1",
-		Name:        "Example Direct 1",
-		Description: "This permission will be assigned directly to a user.",
-	},
-	{
-		ID:          2,
-		Key:         "example_direct_2",
-		Name:        "Example Direct 2",
-		Description: "This permission will be assigned directly to a user.",
-	},
-	{
-		ID:          3,
-		Public:      true,
-		Key:         "example_public_1",
-		Name:        "Example Public 1",
-		Description: "This permission will be used by both the front-end and the back-end.",
-	},
-	{
-		ID:          4,
-		Public:      true,
-		Key:         "example_public_2",
-		Name:        "Example Public 2",
-		Description: "This permission will be used by both the front-end and the back-end.",
-	},
-	{
-		ID:          5,
-		Key:         "example_private_1",
-		Name:        "Example Private 1",
-		Description: "This permission will only be used by the back-end.",
-	},
-	{
-		ID:          6,
-		Key:         "example_private_2",
-		Name:        "Example Private 2",
-		Description: "This permission will only be used by the back-end.",
-	},
-}
-
-var mockUserPermissions = []userPermission{
-	{
-		ID:           1,
-		UserID:       2, // test@example.com
-		PermissionID: 1, // example_direct_1
-	},
-	{
-		ID:           2,
-		UserID:       2, // test@example.com
-		PermissionID: 2, // example_direct_2
-	},
-}
-
-var mockRolePermissions = []rolePermission{
-	{
-		ID:           1,
-		RoleID:       1, // example_role_1
-		PermissionID: 3, // example_public_1
-	},
-	{
-		ID:           2,
-		RoleID:       1, // example_role_1
-		PermissionID: 4, // example_public_2
-	},
-	{
-		ID:           3,
-		RoleID:       2, // example_role_2
-		PermissionID: 5, // example_private_1
-	},
-	{
-		ID:           4,
-		RoleID:       2, // example_role_2
-		PermissionID: 6, // example_private_2
 	},
 }
