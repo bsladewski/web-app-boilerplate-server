@@ -3,12 +3,13 @@ package email
 import (
 	"errors"
 
+	"web-app/data"
+	"web-app/env"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ses"
-	"github.com/bsladewski/web-app-boilerplate-server/data"
-	"github.com/bsladewski/web-app-boilerplate-server/env"
 	"github.com/sirupsen/logrus"
 
 	"gorm.io/gorm"

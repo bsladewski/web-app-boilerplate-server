@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
-	"github.com/bsladewski/web-app-boilerplate-server/email"
-	"github.com/bsladewski/web-app-boilerplate-server/httperror"
-	"github.com/bsladewski/web-app-boilerplate-server/server"
-	"github.com/bsladewski/web-app-boilerplate-server/user"
+	"web-app/data"
+	"web-app/email"
+	"web-app/httperror"
+	"web-app/server"
+	"web-app/user"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/twinj/uuid"

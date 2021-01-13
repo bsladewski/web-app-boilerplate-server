@@ -6,12 +6,13 @@
 package main
 
 import (
-	"github.com/bsladewski/web-app-boilerplate-server/env"
-	"github.com/bsladewski/web-app-boilerplate-server/server"
+	"web-app/env"
+	"web-app/server"
+
 	"github.com/sirupsen/logrus"
 
-	_ "github.com/bsladewski/web-app-boilerplate-server/health"
-	_ "github.com/bsladewski/web-app-boilerplate-server/user/delivery"
+	_ "web-app/health"
+	_ "web-app/user/delivery"
 )
 
 const (

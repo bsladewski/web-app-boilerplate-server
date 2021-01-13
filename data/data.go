@@ -13,7 +13,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bsladewski/web-app-boilerplate-server/env"
+	"web-app/env"
+
 	"github.com/sirupsen/logrus"
 
 	"gorm.io/driver/mysql"

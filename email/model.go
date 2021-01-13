@@ -3,7 +3,8 @@ package email
 import (
 	"time"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
+	"web-app/data"
+
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )

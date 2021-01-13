@@ -10,8 +10,9 @@ import (
 	"io"
 	"time"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
-	"github.com/bsladewski/web-app-boilerplate-server/env"
+	"web-app/data"
+	"web-app/env"
+
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
 	"github.com/twinj/uuid"

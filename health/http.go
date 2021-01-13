@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
-	"github.com/bsladewski/web-app-boilerplate-server/server"
+	"web-app/data"
+	"web-app/server"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

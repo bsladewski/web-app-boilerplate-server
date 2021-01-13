@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"text/template"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
+	"web-app/data"
 )
 
 // TemplateTitle defines a unique title for retrieving an email template.

@@ -5,6 +5,7 @@
 *.so
 *.dylib
 web-app-boilerplate-server
+web-app
 
 # Test binary, built with `go test -c`
 *.test

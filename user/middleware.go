@@ -8,8 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bsladewski/web-app-boilerplate-server/data"
-	"github.com/bsladewski/web-app-boilerplate-server/httperror"
+	"web-app/data"
+	"web-app/httperror"
+
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

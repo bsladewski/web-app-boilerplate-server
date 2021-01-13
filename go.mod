@@ -1,4 +1,4 @@
-module github.com/bsladewski/web-app-boilerplate-server
+module web-app
 
 go 1.13
 
