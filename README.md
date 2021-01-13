@@ -1,5 +1,7 @@
 # Web App Boilerplate Server
 
+![go workflow](https://github.com/bsladewski/web-app-boilerplate-server/workflows/Go/badge.svg)
+
 The web app boilerplate provides the basic structure of a web app that uses Go for the API server and VueJS for the front-end. The purpose of this repository is to speed up the development of prototypes by implementing some of the basic functionality that is common to many different types of web apps. This includes packages for working with the environment, database, application router, etc. as well as functionality for managing user accounts, authentication, and permissions.
 
 For an example project utilizing this boilerplate check out the [Mojito Repository](https://github.com/bsladewski/mojito).
