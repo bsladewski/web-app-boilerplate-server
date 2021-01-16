@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"web-app/cache"
 	"web-app/data"
 	"web-app/server"
 
@@ -13,7 +14,8 @@ import (
 
 // init binds API endpoints for checking application health.
 func init() {
-	server.Router().GET(healthEndpoint, healthHandler)
+	server.Router().GET(healthEndpoint,
+		cache.LocalCacheMiddleware(30*time.Second), healthHandler)
 }
 
 const (
