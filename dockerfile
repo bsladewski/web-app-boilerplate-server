@@ -25,7 +25,7 @@ COPY . .
 RUN go build -o main .
 
 # Start a new stage from scratch
-FROM alpine:latest
+FROM alpine:3
 RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/

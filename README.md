@@ -2,6 +2,7 @@
 
 ![go workflow](https://github.com/bsladewski/web-app-boilerplate-server/workflows/Go/badge.svg)
 ![codeql workflow](https://github.com/bsladewski/web-app-boilerplate-server/workflows/CodeQL/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2663e764a16045b9adb76e90db08cd7e)](https://www.codacy.com/gh/bsladewski/web-app-boilerplate-server/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bsladewski/web-app-boilerplate-server&amp;utm_campaign=Badge_Grade)
 
 The web app boilerplate provides the basic structure of a web app that uses Go for the API server and VueJS for the front-end. The purpose of this repository is to speed up the development of prototypes by implementing some of the basic functionality that is common to many different types of web apps. This includes packages for working with the environment, database, application router, etc. as well as functionality for managing user accounts, authentication, and permissions.
 
@@ -9,67 +10,83 @@ For an example project utilizing this boilerplate check out the [Mojito Reposito
 
 Feel free to [fork](https://github.com/bsladewski/web-app-boilerplate-server/fork), copy, or borrow from this repository and start building!
 
-# Dependencies
+## Dependencies
 
 This project uses the [Go programming language](https://golang.org/dl/).
 
 Additional dependencies are managed through [Go Modules](https://blog.golang.org/using-go-modules).
 
-# Usage
+## Usage
 
-## Installation
+### Installation
 
 To get started, retrieve the package using the `go get` command:
 
-`$ go get github.com/bsladewski/web-app-boilerplate-server`
+```sh
+go get github.com/bsladewski/web-app-boilerplate-server
+```
 
 Alternatively you may clone the repository directly:
 
-`$ git clone https://github.com/bsladewski/web-app-boilerplate-server`
+```sh
+git clone https://github.com/bsladewski/web-app-boilerplate-server
+```
 
-## Running Without Docker
+### Running Without Docker
 
 Build the application by running the `go build` command in the root project directory:
 
-`$ go build`
+```sh
+go build
+```
 
 This will produce an executable binary:
 
-`$ ./web-app-boilerplate-server`
+```sh
+./web-app-boilerplate-server
+```
 
 The application is configured through the environement. To stand up an API server ensure that all required environment variables are set to appropriate values. You can find a sample configuration in the `.env.sample` file. Documentation for the environment variables are found in their respective package documentation.
 
-## Running With Docker
+### Running With Docker
 
 To begin, copy the `.env.sample` file to `.env`. You may use this file to configure the API server.
 
 Build the docker image by running the following command:
 
-`$ docker build --tag webapp:1.0 .`
+```sh
+docker build --tag webapp:1.0 .
+```
 
 Once the docker image is built, run the application using the `docker run` command:
 
-`$ docker run --publish 8080:8080 --env-file .env --name webapp webapp:1.0`
+```sh
+docker run --publish 8080:8080 --env-file .env --name webapp webapp:1.0
+```
 
 We pass the `.env` file into the `docker run` command to configure the API server.
 
 To stop the API server use the `docker stop` command:
 
-`$ docker stop webapp`
+```sh
+docker stop webapp
+```
 
 Finally, you may remove the container with the following command:
 
-`$ docker rm --force webapp`
+```sh
+docker rm --force webapp
+```
 
-# Contributing
+## Contributing
 
-1. [Fork it!](https://github.com/bsladewski/web-app-boilerplate-server/fork)
-2. Create your feature branch: `git checkout -b feature/my-new-feature`
-3. Commit your changes: `git commit -am 'Implemented my cool new feature'`
-4. Push to the branch: `git push origin feature/my-new-feature`
-5. Submit a new Pull Request
+1.  [Fork it!](https://github.com/bsladewski/web-app-boilerplate-server/fork)
+2.  Create your feature branch: `git checkout -b feature/my-new-feature`
+3.  Commit your changes: `git commit -am 'Implemented my cool new feature'`
+4.  Push to the branch: `git push origin feature/my-new-feature`
+5.  Submit a new Pull Request
 
-# License
+## License
 
 The MIT License (MIT)
 

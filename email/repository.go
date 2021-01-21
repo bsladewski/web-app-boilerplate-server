@@ -52,14 +52,11 @@ func createEmailLog(db *gorm.DB, sendingMethod string, originalEmailID uint,
 		errStr = err.Error()
 	}
 
-	if err := db.Save(&emailLog{
+	return db.Save(&emailLog{
 		Method:          sendingMethod,
 		OriginalEmailID: originalEmailID,
 		Data:            string(dataBytes),
 		Error:           errStr,
-	}).Error; err != nil {
-		return err
-	}
+	}).Error
 
-	return nil
 }
