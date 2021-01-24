@@ -479,7 +479,8 @@ func logout(c *gin.Context) {
 
 	// set logged out at time, this will invalidate all access tokens issued
 	// before this time
-	u.LoggedOutAt = time.Now()
+	now := time.Now()
+	u.LoggedOutAt = &now
 
 	// update the user record
 	if err := user.SaveUser(c, data.DB(), u); err != nil {

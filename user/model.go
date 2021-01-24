@@ -50,7 +50,7 @@ type User struct {
 	SecretKey string `json:"secret_key"` // used to sign tokens when generating links for this user
 	Verified  bool   `json:"verified"`   // whether the user has completed email verification
 
-	LoggedOutAt time.Time `json:"logged_out_at"` // records the last time the user explicitly logged out
+	LoggedOutAt *time.Time `json:"logged_out_at"` // records the last time the user explicitly logged out
 }
 
 // Login stores identifiers for validating user auth tokens.

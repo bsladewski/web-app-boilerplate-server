@@ -214,7 +214,7 @@ func jwtAccessTokenValid(c *gin.Context) error {
 	}
 
 	if metadata.expiresAt.Before(time.Now()) ||
-		metadata.createdAt.Before(u.LoggedOutAt) {
+		(u.LoggedOutAt != nil && metadata.createdAt.Before(*u.LoggedOutAt)) {
 		return errors.New("access token expired")
 	}
 
