@@ -7,6 +7,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 // init migrates the database model.
@@ -23,7 +24,9 @@ func init() {
 
 	// load mock data
 	for _, t := range mockEmailTemplates {
-		if err := data.DB().Create(&t).Error; err != nil {
+		if err := data.DB().Clauses(clause.OnConflict{
+			UpdateAll: true,
+		}).Create(&t).Error; err != nil {
 			logrus.Fatal(err)
 		}
 	}

@@ -16,5 +16,5 @@ require (
 	gopkg.in/stretchr/testify.v1 v1.2.2 // indirect
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/driver/sqlite v1.1.3
-	gorm.io/gorm v1.20.5
+	gorm.io/gorm v1.20.11
 )
