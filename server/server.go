@@ -33,8 +33,9 @@
 //     WEB_APP_CORS_MAX_AGE
 //         int - the number of seconds a preflight response may be cached.
 //               Default: 600
-//     WEB_APP_CLIENT_HOST
-//         string - the host that is used to server the application front-end.
+//     WEB_APP_CLIENT_BASE_URL
+//         string - the base URL of the server that is used to serve the
+//                  application front-end.
 package server
 
 import (
@@ -70,8 +71,8 @@ func init() {
 		"X-Requested-With,X-Total-Records"), -1)
 	preflightMaxAge = env.GetIntSafe(preflightMaxAgeVariable, 600)
 
-	// get client host
-	clientHost = env.MustGetString(clientHostVariable)
+	// get client base URL
+	clientBaseURL = env.MustGetString(clientBaseURLVariable)
 
 	// initialize application server router
 	router = gin.Default()
@@ -120,9 +121,9 @@ const (
 	// preflightMaxAgeVariable defines the environment variable for the max age
 	// of cached preflight reponse.
 	preflightMaxAgeVariable = "WEB_APP_CORS_MAX_AGE"
-	// clientHostVariable defines the environment variable for the host that is
-	// used to serve the application front-end.
-	clientHostVariable = "WEB_APP_CLIENT_HOST"
+	// clientBaseURLVariable defines the environment variable for the base URL
+	// of the server that is used to serve the application front-end.
+	clientBaseURLVariable = "WEB_APP_CLIENT_BASE_URL"
 )
 
 // router is used to bind API endpoints.
@@ -151,9 +152,9 @@ var exposeHeaders []string
 // preflight request.
 var preflightMaxAge int
 
-// clientHost stores the host that serves the application front-end for use in
-// formatting links.
-var clientHost string
+// clientBaseURL stores the base URL of the server that is used to serve the
+// application front-end. This value is used when formatting links.
+var clientBaseURL string
 
 // Router retrieves the application server router which can be used to bind
 // handler functions to API endpoints.
@@ -161,9 +162,9 @@ func Router() *gin.Engine {
 	return router
 }
 
-// ClientHost retrieves the client host.
-func ClientHost() string {
-	return clientHost
+// ClientBaseURL retrieves the client base URL.
+func ClientBaseURL() string {
+	return clientBaseURL
 }
 
 // Run starts the application server. Returns when the server is terminated.
