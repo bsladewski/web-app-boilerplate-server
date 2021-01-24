@@ -6,6 +6,8 @@
 
 The web app boilerplate provides the basic structure of a web app that uses Go for the API server and VueJS for the front-end. The purpose of this repository is to speed up the development of prototypes by implementing some of the basic functionality that is common to many different types of web apps. This includes packages for working with the environment, database, application router, etc. as well as functionality for managing user accounts, authentication, and permissions.
 
+The front-end can be found in the [Web App Boilerplate Client](https://github.com/bsladewski/web-app-boilerplate-client) repository.
+
 For an example project utilizing this boilerplate check out the [Mojito Repository](https://github.com/bsladewski/mojito).
 
 Feel free to [fork](https://github.com/bsladewski/web-app-boilerplate-server/fork), copy, or borrow from this repository and start building!
